@@ -17,7 +17,7 @@ def set_supervisor_path(computer) -> Path:
 
 def set_output_path(computer) -> Path:
 
-    github_path = Path("GitHub/MLtests/flow_detection/models/")
+    github_path = Path("GitHub/FlowDetection/models/")
 
     if computer == 'hpc':
         return Path("/projects/joka0958/MLoutput/")

@@ -1,4 +1,4 @@
-from flow_detection.src.config import create_config
+from src.config import create_config
 
 
 def main():

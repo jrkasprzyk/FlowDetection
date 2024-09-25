@@ -6,17 +6,17 @@
   seed: 123
 
   # hyperparameters
-  batch_size: 512
-  edge_size: 64
+  batch_size: 128
+  edge_size: 128
   activation_function: relu
 
   # training
-  epochs: 5
+  epochs: 20
   learning_rate: 1.0e-3
   optimizer: adam
 
   # experiment parameters
-  trial_label: edge64batch512
-  plot_history: False
+  trial_label: edge128batch128
+  plot_history: True
   save_model: True
   verbose: True

@@ -1,6 +1,7 @@
-from flow_detection.src.config import create_config, get_train_val_data
-from flow_detection.src.training import train_model
-from flow_detection.src.evaluation import plot_history
+from src.data import get_train_val_data
+from src.config import create_config
+from src.training import train_model
+from src.evaluation import plot_history
 
 
 def main():
