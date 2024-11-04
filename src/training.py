@@ -1,11 +1,12 @@
+# NOTE! I've found that it might make more sense to have this be part of the project
+# script and not hidden in the /src/ folder, so this might be deprecated at some point
+
 from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.losses import SparseCategoricalCrossentropy
 
 
-def train_model(config, train_ds, val_ds):
-
-    num_classes = len(val_ds.class_names)
+def train_model(config, train_ds, val_ds, num_classes):
 
     model = Sequential([
         layers.Input(shape=(config["edge_size"], config["edge_size"], 3)),

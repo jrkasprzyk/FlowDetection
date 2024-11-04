@@ -1,0 +1,21 @@
+  # for setting paths
+  computer: 2020laptop
+
+  # data setup
+  validation_split: 0.2
+  seed: 123
+  shuffle: True
+
+  # hyperparameters
+  batch_size: 128
+
+  # training
+  epochs: 20
+  learning_rate: 1.0e-3
+  optimizer: adam
+
+  # experiment parameters
+  trial_label: trainedOn100
+  plot_history: True
+  save_model: True
+  verbose: True

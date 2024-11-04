@@ -16,7 +16,9 @@ def main():
         config["batch_size"]
     )
 
-    model, history = train_model(config, train_batched_ds, val_batched_ds)
+    num_classes = len(train_batched_ds.class_names)
+
+    model, history = train_model(config, train_batched_ds, val_batched_ds, num_classes)
 
     if config["save_model"]:
         model.save(config["output_path"] / (config["trial_label"] + ".keras"))

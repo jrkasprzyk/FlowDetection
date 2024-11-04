@@ -29,15 +29,20 @@ def main():
     labels, predictions = predict_image_list(val_unbatched_ds, model)
     confusion_matrix = create_confusion_matrix(labels, predictions)
 
-    #TODO: save a dataframe with val_unbatched_ds.file_paths, labels (true index) and predictions (predicted index)
-    image_list_results = pd.DataFrame({'filename': val_unbatched_ds.file_paths,
-                                       'true index': labels,
-                                       'predicted index': predictions})
-    image_list_results.to_excel('image_results.xlsx')
+    # save a dataframe with val_unbatched_ds.file_paths, labels (true index) and predictions (predicted index)
+    #image_list_results = pd.DataFrame({'filename': val_unbatched_ds.file_paths,
+    #                                   'true index': labels,
+    #                                   'predicted index': predictions})
+    #image_list_results.to_excel('image_results.xlsx')
 
     val_batched_ds = val_unbatched_ds.batch(32, drop_remainder=True)
 
+    # In my testing, it seems like the evaluate function only works with batched
+    # data, although maybe that has to do with how the model is originally trained?
     val_loss, val_acc = evaluate_model(val_batched_ds, model)
+
+    # TODO: can evaluate model manually:
+    # https://stackoverflow.com/questions/66688040/calling-keras-model-evaluate-on-every-batch-element-separately
 
 
 if __name__ == "__main__":
