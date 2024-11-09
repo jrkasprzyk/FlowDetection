@@ -5,10 +5,11 @@ dependencies:
   - brotli=1.1.0
   - brotli-bin=1.1.0
   - bzip2=1.0.8
-  - ca-certificates=2024.6.2
-  - certifi=2024.6.2
+  - ca-certificates=2024.8.30
+  - certifi=2024.8.30
   - contourpy=1.2.1
   - cycler=0.12.1
+  - et_xmlfile=1.1.0
   - fonttools=4.53.0
   - freetype=2.12.1
   - glib=2.80.2
@@ -58,8 +59,10 @@ dependencies:
   - munkres=1.1.4
   - numpy=1.26.4
   - openjpeg=2.5.2
-  - openssl=3.3.1
+  - openpyxl=3.1.5
+  - openssl=3.3.2
   - packaging=24.1
+  - pandas=2.2.2
   - pcre2=10.43
   - pillow=10.3.0
   - pip=24.0
@@ -71,7 +74,10 @@ dependencies:
   - pyqt5-sip=12.12.2
   - python=3.12.3
   - python-dateutil=2.9.0
+  - python-tzdata=2024.1
   - python_abi=3.12
+  - pytz=2024.2
+  - pyyaml=6.0.1
   - qt-main=5.15.8
   - setuptools=70.0.0
   - sip=6.7.12
@@ -90,6 +96,7 @@ dependencies:
   - xorg-libxau=1.0.11
   - xorg-libxdmcp=1.1.3
   - xz=5.2.6
+  - yaml=0.2.5
   - zstd=1.5.6
   - pip:
       - absl-py==2.1.0
@@ -101,6 +108,7 @@ dependencies:
       - grpcio==1.64.1
       - h5py==3.11.0
       - idna==3.7
+      - joblib==1.4.2
       - keras==3.3.3
       - libclang==18.1.1
       - markdown==3.6
@@ -115,11 +123,15 @@ dependencies:
       - pygments==2.18.0
       - requests==2.32.3
       - rich==13.7.1
+      - scikeras==0.13.0
+      - scikit-learn==1.5.2
+      - scipy==1.14.1
       - tensorboard==2.16.2
       - tensorboard-data-server==0.7.2
       - tensorflow==2.16.1
       - tensorflow-intel==2.16.1
       - termcolor==2.4.0
+      - threadpoolctl==3.5.0
       - typing-extensions==4.12.2
       - urllib3==2.2.1
       - werkzeug==3.0.3
