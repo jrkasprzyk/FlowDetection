@@ -27,6 +27,10 @@ def set_output_path(computer) -> Path:
         return Path("//files.colorado.edu/CEAE/users/joka0958/Documents/") / github_path
 
 
+def set_custom_path(raw_path) -> Path:
+    return Path(raw_path)
+
+
 def create_config(config_filename):
     config = safe_load(open(config_filename))
     config["supervisor_path"] = set_supervisor_path(config["computer"])
