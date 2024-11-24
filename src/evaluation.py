@@ -3,6 +3,7 @@ from tensorflow.math import confusion_matrix
 from tensorflow.data.experimental import ignore_errors
 
 import matplotlib.pyplot as plt
+import os
 
 
 def predict_one_image(x, y, model):
@@ -36,22 +37,53 @@ def predict_image_list(ds, model):
     return labels, predictions
 
 
-def predict_unlabeled_image_list(ds, model):
+def predict_unlabeled_image_list(ds, model, filename='test.txt', start_ix=0):
 
-    predictions = np.empty([len(ds)])
-    ds = ds.apply(ignore_errors()) # once you apply a filter, len() doesn't work anymore
+    #predictions = np.empty([len(ds)])
 
-    #TODO: incrementally save output file as predictions are being made
+    with open(filename, 'w') as f:
+        # Write header
+        f.write('index,year,month,day,time,camera,tag,prediction\n')
 
-    i = 0
-    for x in ds:
-        predictions[i] = np.argmax(model.predict(x[None, :, :, :], verbose=0), axis=-1)
-        i = i+1
-        print(f"{i}")
-        #if i > 100:
-        #    break
+        #ds = ds.apply(ignore_errors()) # once you apply a filter, len() doesn't work anymore
+        index = 0
+        #TODO: incrementally save output file as predictions are being made
+        for item in ds:
+            print(f"i={index}")
+            temp_filename = ds.file_paths[index]
+            # Extract base filename without extension
+            full_name, extension = os.path.splitext(temp_filename)  # base_name = "image_20231124_1035", extension = ".jpg"
 
-    return predictions
+            big_parts = full_name.split("\\")
+            parts = big_parts[6].split("_")
+
+            # Extract date and time information (if present)
+            year = parts[0]
+            month = parts[1]
+            day = parts[2]
+            time = parts[3]
+            # the word "camera" is parts[4]
+            camera_index = parts[5]
+            image_tag = parts[6]
+
+            temp_prediction = np.argmax(
+                model.predict(
+                    item[None, :, :, :],
+                    verbose=0
+                ),
+                axis=-1
+            )
+            f.write(f"{index},"
+                    f"{year},"
+                    f"{month},"
+                    f"{day},"
+                    f"{time},"
+                    f"{camera_index},"
+                    f"{image_tag},"
+                    f"{temp_prediction[0]}\n")
+            index = index+1
+
+    return
 
 
 def create_confusion_matrix(labels, predictions):

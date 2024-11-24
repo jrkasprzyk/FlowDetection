@@ -11,7 +11,7 @@ from src.evaluation import predict_unlabeled_image_list, create_confusion_matrix
 def main():
 
     #supervisor_path = set_supervisor_path("2020laptop")
-    image_path = set_custom_path("D:/2023 Photos/")
+    image_path = set_custom_path("C:/Users/josep/OneDrive - UCB-O365/Datasets/flow_detection_unlabeled")
     ds = image_dataset_from_directory(
         image_path,
         labels=None,
@@ -20,7 +20,7 @@ def main():
         shuffle=False,
         verbose=True
     )
-    #print(f"At first, dataset contains {len(ds)} entries")
+    print(f"At first, dataset contains {len(ds)} entries")
 
     #ds = ds.apply(ignore_errors())
 
@@ -40,9 +40,9 @@ def main():
     #confusion_matrix = create_confusion_matrix(labels, predictions)
 
     # save a dataframe with val_unbatched_ds.file_paths, labels (true index) and predictions (predicted index)
-    image_list_results = pd.DataFrame({'filename': ds.file_paths[0:len(predictions)],
-                                       'predicted index': predictions})
-    image_list_results.to_excel('unlabeled_image_results_2023.xlsx')
+    #image_list_results = pd.DataFrame({'filename': ds.file_paths[0:len(predictions)],
+    #                                   'predicted index': predictions})
+    #image_list_results.to_excel('unlabeled_image_results_2023.xlsx')
 
 
 if __name__ == "__main__":
