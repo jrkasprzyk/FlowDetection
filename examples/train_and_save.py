@@ -6,7 +6,7 @@ from src.evaluation import plot_history
 
 def main():
 
-    config = create_config("train_and_save_config.yaml")
+    config = create_config("model001.yaml")
 
     train_batched_ds, val_batched_ds = get_train_val_data(
         config["supervisor_path"],

@@ -5,7 +5,7 @@ from typing import Dict
 
 def set_supervisor_path(computer) -> Path:
 
-    onedrive_path = Path("OneDrive - UCB-O365/Datasets/flow_detection/")
+    onedrive_path = Path("OneDrive - UCB-O365/Datasets/flow_detection_labeled_camera-b/")
 
     if computer == 'hpc':
         return Path("/projects/joka0958/supervisor/")

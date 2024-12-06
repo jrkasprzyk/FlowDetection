@@ -11,12 +11,12 @@ from src.evaluation import predict_unlabeled_image_list, create_confusion_matrix
 def main():
 
     #supervisor_path = set_supervisor_path("2020laptop")
-    image_path = set_custom_path("C:/Users/josep/OneDrive - UCB-O365/Datasets/flow_detection_unlabeled")
+    image_path = set_custom_path("C:/Users/josep/OneDrive - UCB-O365/Datasets/flow_detection_unlabeled_camera_b")
     ds = image_dataset_from_directory(
         image_path,
         labels=None,
         batch_size=None,
-        image_size=(256,256),
+        image_size=(128,128),
         shuffle=False,
         verbose=True
     )
@@ -27,7 +27,7 @@ def main():
     #print(f"After the ignore_errors subroutine, ds has {len(ds)} entries")
 
     output_path = set_output_path("2020laptop")
-    model_filename = output_path / "edge256batch128.keras"
+    model_filename = output_path / "model001.keras"
 
     # load model from file
     # https://www.tensorflow.org/tutorials/keras/save_and_load
@@ -35,7 +35,7 @@ def main():
 
     print(model.summary())
 
-    predictions = predict_unlabeled_image_list(ds, model)
+    predictions = predict_unlabeled_image_list(ds, model, filename=output_path / "model001_unlabeled_camera_b")
 
     #confusion_matrix = create_confusion_matrix(labels, predictions)
 

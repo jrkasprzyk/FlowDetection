@@ -11,7 +11,7 @@ def main():
     supervisor_path = set_supervisor_path("2020laptop")
     output_path = set_output_path("2020laptop")
 
-    model_filename = output_path / "edge128batch128.keras"
+    model_filename = output_path / "edge128batch24epoch30.keras"
 
     # load model from file
     # https://www.tensorflow.org/tutorials/keras/save_and_load
@@ -26,8 +26,8 @@ def main():
         128,
         None)
 
-    labels, predictions = predict_image_list(val_unbatched_ds, model)
-    confusion_matrix = create_confusion_matrix(labels, predictions)
+    #labels, predictions = predict_image_list(val_unbatched_ds, model)
+    #confusion_matrix = create_confusion_matrix(labels, predictions)
 
     # save a dataframe with val_unbatched_ds.file_paths, labels (true index) and predictions (predicted index)
     #image_list_results = pd.DataFrame({'filename': val_unbatched_ds.file_paths,
@@ -40,6 +40,8 @@ def main():
     # In my testing, it seems like the evaluate function only works with batched
     # data, although maybe that has to do with how the model is originally trained?
     val_loss, val_acc = evaluate_model(val_batched_ds, model)
+
+    print(f"{model_filename}: validation loss={val_loss}, validation accuracy={val_acc}")
 
     # TODO: can evaluate model manually:
     # https://stackoverflow.com/questions/66688040/calling-keras-model-evaluate-on-every-batch-element-separately

@@ -1,0 +1,1 @@
+index,year,month,day,time,camera,tag,prediction

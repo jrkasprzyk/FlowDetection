@@ -1,0 +1,23 @@
+  # for setting paths
+  computer: 2020laptop
+  # using camera B unlabeled dataset
+
+  # data setup
+  validation_split: 0.2
+  seed: 234
+
+  # hyperparameters
+  batch_size: 24
+  edge_size: 128
+  activation_function: relu
+
+  # training
+  epochs: 10
+  learning_rate: 1.0e-3
+  optimizer: adam
+
+  # experiment parameters
+  trial_label: model001
+  plot_history: True
+  save_model: True
+  verbose: True
