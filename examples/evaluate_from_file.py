@@ -11,7 +11,7 @@ def main():
     supervisor_path = set_supervisor_path("2020laptop")
     output_path = set_output_path("2020laptop")
 
-    model_filename = output_path / "edge128batch24epoch30.keras"
+    model_filename = output_path / "model001.keras"
 
     # load model from file
     # https://www.tensorflow.org/tutorials/keras/save_and_load
@@ -22,7 +22,7 @@ def main():
     train_unbatched_ds, val_unbatched_ds = get_train_val_data(
         supervisor_path,
         0.20,
-        123,
+        234,
         128,
         None)
 
@@ -35,7 +35,7 @@ def main():
     #                                   'predicted index': predictions})
     #image_list_results.to_excel('image_results.xlsx')
 
-    val_batched_ds = val_unbatched_ds.batch(32, drop_remainder=True)
+    val_batched_ds = val_unbatched_ds.batch(24, drop_remainder=True)
 
     # In my testing, it seems like the evaluate function only works with batched
     # data, although maybe that has to do with how the model is originally trained?
