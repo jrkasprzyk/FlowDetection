@@ -1,5 +1,6 @@
 from tensorflow.keras.models import load_model
 import pandas as pd
+import matplotlib.pyplot as plt
 
 from src.config import set_output_path, set_supervisor_path
 from src.data import get_train_val_data
@@ -28,12 +29,6 @@ def main():
 
     #labels, predictions = predict_image_list(val_unbatched_ds, model)
     #confusion_matrix = create_confusion_matrix(labels, predictions)
-
-    # save a dataframe with val_unbatched_ds.file_paths, labels (true index) and predictions (predicted index)
-    #image_list_results = pd.DataFrame({'filename': val_unbatched_ds.file_paths,
-    #                                   'true index': labels,
-    #                                   'predicted index': predictions})
-    #image_list_results.to_excel('image_results.xlsx')
 
     val_batched_ds = val_unbatched_ds.batch(24, drop_remainder=True)
 

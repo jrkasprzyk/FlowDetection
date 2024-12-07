@@ -100,7 +100,7 @@ def evaluate_model(ds, model):
     return loss, acc
 
 
-def plot_history(config, history):
+def plot_history(config, history, plot_filename=None):
 
     # TODO check that these hard-coded numbers are OK
     acc = history.history['accuracy']
@@ -124,3 +124,6 @@ def plot_history(config, history):
     plt.legend(loc='upper right')
     plt.title('Training and Validation Loss')
     plt.show()
+
+    if plot_filename is not None:
+        plt.savefig(plot_filename)
