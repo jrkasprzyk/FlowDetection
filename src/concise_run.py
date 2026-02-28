@@ -6,9 +6,9 @@
 from tensorflow.keras.models import load_model
 import pandas as pd
 
-from src.config import set_output_path, set_supervisor_path
-from src.data import get_train_val_data
-from src.evaluation import predict_image_list, create_confusion_matrix, evaluate_model
+from FlowDetection.config import set_output_path, set_supervisor_path
+from FlowDetection.data import get_train_val_data
+from FlowDetection.evaluation import predict_image_list, create_confusion_matrix, evaluate_model
 
 
 def main():

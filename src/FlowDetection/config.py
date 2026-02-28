@@ -32,7 +32,13 @@ def set_custom_path(raw_path) -> Path:
 
 
 def create_config(config_filename):
+
+    '''reads in the config file. Based on the computer name in the config file, sets the paths for the supervisor and output folders.'''
+
+    # read in the config file
     config = safe_load(open(config_filename))
+
+    # set the paths based on the computer name in the config file  
     config["supervisor_path"] = set_supervisor_path(config["computer"])
     config["output_path"] = set_output_path(config["computer"])
     return config
