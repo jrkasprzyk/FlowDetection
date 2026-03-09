@@ -5,6 +5,9 @@ from typing import Dict
 
 def set_supervisor_path(computer) -> Path:
 
+    '''sets the path to the supervisor folder based on the computer name. 
+    The supervisor folder contains the images for training and validation.'''
+
     onedrive_path = Path("OneDrive - UCB-O365/Datasets/flow_detection_labeled_camera-b/")
 
     if computer == 'hpc':
@@ -13,9 +16,14 @@ def set_supervisor_path(computer) -> Path:
         return Path("C:/Users/josep/") / onedrive_path
     elif computer == 'seecdesktop':
         return Path("C:/Users/joka0958/") / onedrive_path
+    elif computer == 'CEAE-L-042':
+        return Path("C:/Users/joka0958/") / onedrive_path
 
 
 def set_output_path(computer) -> Path:
+
+    '''sets the path to the output folder based on the computer name. 
+    The output folder is where the trained models and other outputs will be saved.'''
 
     github_path = Path("GitHub/FlowDetection/models/")
 
@@ -28,6 +36,7 @@ def set_output_path(computer) -> Path:
 
 
 def set_custom_path(raw_path) -> Path:
+    '''sets a custom path based on the raw path provided. This is useful for testing and debugging.'''
     return Path(raw_path)
 
 
