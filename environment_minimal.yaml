@@ -1,0 +1,18 @@
+name: flowdetectionminimal
+channels:
+  - conda-forge
+dependencies:
+  - matplotlib=3.8.4
+  - numpy=1.26.4
+  - pandas=2.2.2
+  - python=3.12.3
+  - yaml=0.2.5
+  - zstd=1.5.6
+  - pip:
+      - keras==3.3.3
+      - scikeras==0.13.0
+      - scikit-learn==1.5.2
+      - scipy==1.14.1
+      - tensorflow==2.16.1
+      - typing-extensions==4.12.2
+prefix: C:\envs\flowdetectionminimal
