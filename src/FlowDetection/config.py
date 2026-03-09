@@ -33,6 +33,9 @@ def set_output_path(computer) -> Path:
         return Path("C:/Users/josep/Documents/") / github_path
     elif computer == 'seecdesktop':
         return Path("//files.colorado.edu/CEAE/users/joka0958/Documents/") / github_path
+    elif computer == 'CEAE-L-042':
+        return Path("C:/") / github_path
+
 
 
 def set_custom_path(raw_path) -> Path:

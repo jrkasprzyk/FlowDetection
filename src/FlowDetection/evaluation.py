@@ -8,32 +8,39 @@ import os
 
 def predict_one_image(x, y, model):
 
-    # this routine assumes that the true index is known
+    '''predicts the class of a single image x with true label y using the provided model.'''
 
-    # to handle the fact the model was trained with batches and thus expects the first dimension
-    # to be 'None', see here:
-    # https://stackoverflow.com/questions/60486437/add-none-dimension-in-tensorflow-2-0
-
-    # also note that predict_class is deprecated in recent tensorflow,
-    # so we use this np.argmax construction when predicting
-
+    # the true index is a tensor, so we need to convert it to a numpy array before we can concatenate it with the predictions
     true_index = y.numpy()
+
+    # use the model to predict the class of the image. The output of the model is a probability distribution over the classes, 
+    # so we use np.argmax to get the index of the class with the highest probability. We also set verbose=0 to suppress the 
+    # output of the prediction. The model was originally trained with batches. Therefore when we try to predict one
+    # image, we have to add a batch dimension called 'None', see example here:
+    # https://stackoverflow.com/questions/60486437/add-none-dimension-in-tensorflow-2-0
     predicted_index = np.argmax(model.predict(x[None, :, :, :], verbose=0), axis=-1)
+
+    # I'm not sure why we need to return the true_index in addition to the predicted_index (?)
     return true_index, predicted_index
 
 
 def predict_image_list(ds, model):
 
-    # this routine assumes that the true index is known
+    '''predicts the classes of a list of images in a dataset ds using the provided model.
+     The true labels of the images are also returned.'''
 
+    # we initialize empty arrays for the predictions and labels
     predictions = np.array([])
     labels = np.array([])
 
+    # We loop through the dataset and predict the class of each image.
+    # The predicted class index and the true class index are concatenated to the predictions and labels arrays
     for x, y in ds:
         true_index, predicted_index = predict_one_image(x, y, model)
         predictions = np.concatenate([predictions, predicted_index], axis=None)
         labels = np.concatenate([labels, true_index], axis=None)
 
+    # we return the labels and predictions as numpy arrays
     return labels, predictions
 
 
