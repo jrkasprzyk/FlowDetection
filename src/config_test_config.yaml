@@ -1,5 +1,5 @@
   # for setting paths
-  computer: 2020laptop
+  computer: CEAE-L-042
 
   # data setup
   validation_split: 0.2

@@ -13,8 +13,10 @@ from FlowDetection.evaluation import predict_image_list, create_confusion_matrix
 
 def main():
 
-    supervisor_path = set_supervisor_path("2020laptop")
-    output_path = set_output_path("2020laptop")
+    test_computer = "CEAE-L-042"
+
+    supervisor_path = set_supervisor_path(test_computer)
+    output_path = set_output_path(test_computer)
 
     model_filename = output_path / "edge128batch128.keras"
 
@@ -46,7 +48,7 @@ def main():
                                     #'filename': val_unbatched_ds_hundred.file_paths,
                                        'true index': labels,
                                        'predicted index': predictions})
-    image_list_results.to_excel('image_results_hundred.xlsx')
+    image_list_results.to_excel(output_path / 'image_results_hundred2.xlsx')
     print("finished writing image list results to excel")
 
 
