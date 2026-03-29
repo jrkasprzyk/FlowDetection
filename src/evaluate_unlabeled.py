@@ -1,18 +1,20 @@
-from tensorflow.keras.models import load_model
-from tensorflow.keras.utils import image_dataset_from_directory
-from tensorflow.data.experimental import ignore_errors
+from FlowDetection.runtime import configure_tensorflow_environment
+
+configure_tensorflow_environment()
+
+import tensorflow as tf
 import pandas as pd
 
-from src.config import set_output_path, set_custom_path
-from src.data import get_train_val_data
-from src.evaluation import predict_unlabeled_image_list, create_confusion_matrix, evaluate_model
+from FlowDetection.config import set_output_path, set_custom_path
+from FlowDetection.data import get_train_val_data
+from FlowDetection.evaluation import predict_unlabeled_image_list, create_confusion_matrix, evaluate_model
 
 
 def main():
 
     #supervisor_path = set_supervisor_path("2020laptop")
     image_path = set_custom_path("C:/Users/josep/OneDrive - UCB-O365/Datasets/flow_detection_unlabeled_camera_b")
-    ds = image_dataset_from_directory(
+    ds = tf.keras.utils.image_dataset_from_directory(
         image_path,
         labels=None,
         batch_size=None,
@@ -31,7 +33,7 @@ def main():
 
     # load model from file
     # https://www.tensorflow.org/tutorials/keras/save_and_load
-    model = load_model(model_filename)
+    model = tf.keras.models.load_model(model_filename)
 
     print(model.summary())
 

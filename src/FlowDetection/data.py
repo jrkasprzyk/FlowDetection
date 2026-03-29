@@ -1,4 +1,4 @@
-from tensorflow.keras.utils import image_dataset_from_directory
+import tensorflow as tf
 
 
 def get_train_val_data(supervisor_path, validation_split, seed, image_size, batch_size, shuffle=True, verbose=True):
@@ -14,7 +14,7 @@ def get_train_val_data(supervisor_path, validation_split, seed, image_size, batc
     # we can manipulate Dataset objects and perform transforms on them if we need them
     # so for example we can create a basic dataset and then augment it, batch it, etc.
     # later on
-    train_ds, val_ds = image_dataset_from_directory(
+    train_ds, val_ds = tf.keras.utils.image_dataset_from_directory(
         supervisor_path,
         validation_split=validation_split,  # typically 0.2, but made smaller to make this example quick
         subset="both",

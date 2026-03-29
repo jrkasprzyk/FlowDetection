@@ -3,6 +3,10 @@
 # https://stackoverflow.com/questions/58663198/does-tf-data-dataset-take-return-random-sample
 # in the above, ds.take(n) takes n samples; if shuffle=True, these samples are random
 
+from FlowDetection.runtime import configure_tensorflow_environment
+
+configure_tensorflow_environment()
+
 from tensorflow.keras.models import load_model
 import pandas as pd
 

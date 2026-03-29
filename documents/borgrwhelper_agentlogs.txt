@@ -1,0 +1,82 @@
+In a series of agent sessions, we did a lot of work in making the repo jrkasprzyk/BorgRWProblems easier to use, especially in the context of using a repo across multiple machines.
+
+I'd like to be able to port this work to a few other repositories of mine that are not as well organized and portable.
+
+The log below shows summaries of a few sessions that we had in which we accomplished these goals, as a model for future work:
+
+## Script Local Path function
+
+These helper functions enable easier entry of input file names:
+
+def script_local_path(filename, must_exist=True, caller_file=None):
+    """Resolve a path relative to the calling script file.
+
+    Args:
+        filename: File name or relative path from the script directory.
+        must_exist: If True, raise FileNotFoundError when the resolved path does not exist.
+        caller_file: Optional script path override; defaults to the caller's file.
+    """
+    if not isinstance(filename, (str, PathLike)):
+        raise TypeError("Input 'filename' must be a path string or path-like object.")
+    if isinstance(filename, str) and not filename.strip():
+        raise ValueError("Input 'filename' cannot be an empty string.")
+    if not isinstance(must_exist, bool):
+        raise TypeError("Input 'must_exist' must be a boolean.")
+
+    candidate = Path(filename)
+    if candidate.is_absolute():
+        resolved = candidate
+    else:
+        if caller_file is None:
+            caller_file = inspect.stack()[1].filename
+        script_dir = Path(caller_file).resolve().parent
+        resolved = script_dir / candidate
+
+    if must_exist and not resolved.exists():
+        raise FileNotFoundError(f"File not found: {resolved}")
+
+    return resolved
+
+
+def ensure_dir(path):
+    """Create a directory (and parents) if missing and return it as a Path."""
+    if not isinstance(path, (str, PathLike)):
+        raise TypeError("Input 'path' must be a path string or path-like object.")
+    if isinstance(path, str) and not path.strip():
+        raise ValueError("Input 'path' cannot be an empty string.")
+
+    directory = Path(path)
+    directory.mkdir(parents=True, exist_ok=True)
+    return directory
+
+## Editable install to, among other things, enable local references
+
+The folder structure got confusing, and I was struggling with the idea of relative imports or trying to get a 'package' to work, by manipulating sys.path etc. We finally fixed that with:
+
+- Use editable install (python -m pip install -e .).
+
+## Modify __init.py__ with an explicit list for import
+
+See these session notes:
+
+Populated borgRWhelper/__init__.py (was blank) with:
+   - Short-form imports from all submodules (file_processing, tradeoff, util, interactive,
+     nowak, ism, reservoir, dash_tools)
+   - A comprehensive __all__ list grouping names by module
+   - Docstring explaining that both the short form (from borgRWhelper import X) and the long
+     form (from borgRWhelper.tradeoff import X) always work
+
+## Convert example scripts to readable jupyter notebooks, in folders self-contained with example data
+
+See session notes:
+
+Convert example scripts to self-contained Jupyter notebooks
+
+Convert five example scripts to ipynb format with preserved logic
+Organize each notebook with local data/ and output/ directories
+Copy real context files (XML, MDL, CSV) from problem folders
+Create index.ipynb for navigation across all examples
+Add per-notebook README.md files documenting structure
+Update top-level examples/README.md with script/notebook index
+Normalize notebook JSON metadata (kernelspec, language, nbformat)
+Handle missing inputs gracefully (AllPolicies.csv fallback in sort_and_plot_tradeoffs)

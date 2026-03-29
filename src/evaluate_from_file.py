@@ -1,10 +1,14 @@
-from tensorflow.keras.models import load_model
+from FlowDetection.runtime import configure_tensorflow_environment
+
+configure_tensorflow_environment()
+
+import tensorflow as tf
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from src.config import set_output_path, set_supervisor_path
-from src.data import get_train_val_data
-from src.evaluation import predict_image_list, create_confusion_matrix, evaluate_model
+from FlowDetection.config import set_output_path, set_supervisor_path
+from FlowDetection.data import get_train_val_data
+from FlowDetection.evaluation import predict_image_list, create_confusion_matrix, evaluate_model
 
 
 def main():
@@ -16,7 +20,7 @@ def main():
 
     # load model from file
     # https://www.tensorflow.org/tutorials/keras/save_and_load
-    model = load_model(model_filename)
+    model = tf.keras.models.load_model(model_filename)
 
     print(model.summary())
 

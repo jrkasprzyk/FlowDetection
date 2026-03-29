@@ -1,9 +1,8 @@
 import numpy as np
-from tensorflow.math import confusion_matrix
-from tensorflow.data.experimental import ignore_errors
+import tensorflow as tf
 
 import matplotlib.pyplot as plt
-import os
+from pathlib import Path
 
 
 def predict_one_image(x, y, model):
@@ -58,11 +57,9 @@ def predict_unlabeled_image_list(ds, model, filename='test.txt', start_ix=0):
         for item in ds:
             print(f"i={index}")
             temp_filename = ds.file_paths[index]
-            # Extract base filename without extension
-            full_name, extension = os.path.splitext(temp_filename)  # base_name = "image_20231124_1035", extension = ".jpg"
-
-            big_parts = full_name.split("\\")
-            parts = big_parts[6].split("_")
+            # Path.stem extracts just the filename without extension, portable across OS and
+            # any directory depth (avoids the old hardcoded big_parts[6] Windows path split)
+            parts = Path(temp_filename).stem.split("_")
 
             # Extract date and time information (if present)
             year = parts[0]
@@ -95,7 +92,7 @@ def predict_unlabeled_image_list(ds, model, filename='test.txt', start_ix=0):
 
 def create_confusion_matrix(labels, predictions):
 
-    return confusion_matrix(labels=labels, predictions=predictions)
+    return tf.math.confusion_matrix(labels=labels, predictions=predictions)
 
 
 def evaluate_model(ds, model):
@@ -130,7 +127,9 @@ def plot_history(config, history, plot_filename=None):
     plt.plot(epochs_range, val_loss, label='Validation Loss')
     plt.legend(loc='upper right')
     plt.title('Training and Validation Loss')
-    plt.show()
 
+    # savefig must come before show(); show() clears the figure, so saving after it produces a blank image
     if plot_filename is not None:
         plt.savefig(plot_filename)
+
+    plt.show()

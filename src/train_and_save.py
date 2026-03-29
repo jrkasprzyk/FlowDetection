@@ -1,12 +1,12 @@
-from src.data import get_train_val_data
-from src.config import create_config
-from src.training import train_model
-from src.evaluation import plot_history
+from FlowDetection.data import get_train_val_data
+from FlowDetection.config import load_config
+from FlowDetection.training import train_model
+from FlowDetection.evaluation import plot_history
 
 
 def main():
 
-    config = create_config("model001.yaml")
+    config = load_config("model001.yaml")
 
     train_batched_ds, val_batched_ds = get_train_val_data(
         config["supervisor_path"],
