@@ -13,7 +13,7 @@ from FlowDetection.evaluation import predict_unlabeled_image_list, create_confus
 def main():
 
     #supervisor_path = set_supervisor_path("2020laptop")
-    image_path = set_custom_path("C:/Users/josep/OneDrive - UCB-O365/Datasets/flow_detection_unlabeled_camera_b")
+    image_path = set_custom_path("C:/Users/joka0958/OneDrive - UCB-O365/Datasets/flow_detection_unlabeled_camera_b")
     ds = tf.keras.utils.image_dataset_from_directory(
         image_path,
         labels=None,
@@ -28,7 +28,7 @@ def main():
 
     #print(f"After the ignore_errors subroutine, ds has {len(ds)} entries")
 
-    output_path = set_output_path("2020laptop")
+    output_path = set_output_path("CEAE-L-042")
     model_filename = output_path / "model001.keras"
 
     # load model from file
