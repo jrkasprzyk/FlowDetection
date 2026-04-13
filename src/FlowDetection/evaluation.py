@@ -44,6 +44,18 @@ def predict_image_list(ds, model):
 
 
 def predict_unlabeled_image_list(ds, model, filename='test.txt', start_ix=0):
+    '''Runs model inference on an unlabeled dataset and writes predictions to a CSV file.
+
+    The dataset is expected to contain individual (unbatched) images with no labels.
+    Metadata (date, time, camera, tag) is parsed from the image filenames, which must
+    follow the naming convention: YYYY_MM_DD_HHMMSS_camera_INDEX_TAG.ext
+
+    Args:
+        ds: An unlabeled tf.data.Dataset (batch_size=None, labels=None).
+        model: Trained Keras model.
+        filename: Output CSV file path.
+        start_ix: Unused starting index (reserved for future partial-run support).
+    '''
 
     #predictions = np.empty([len(ds)])
 
@@ -91,12 +103,21 @@ def predict_unlabeled_image_list(ds, model, filename='test.txt', start_ix=0):
 
 
 def create_confusion_matrix(labels, predictions):
+    '''Build a confusion matrix comparing true labels to model predictions.
 
+    Returns a square tensor of shape [num_classes, num_classes] where entry [i, j]
+    is the number of samples with true class i predicted as class j.
+    '''
     return tf.math.confusion_matrix(labels=labels, predictions=predictions)
 
 
 def evaluate_model(ds, model):
+    '''Compute loss and accuracy for the given dataset.
 
+    Wraps model.evaluate(), which passes the entire dataset through the model
+    and returns the compiled loss and metrics (here: accuracy).
+    The dataset must be batched; unbatched inputs will raise a shape error.
+    '''
     #print("Evaluating model behavior...")
     loss, acc = model.evaluate(ds)
     #print("loss=", val_loss, " acc=", val_acc)
@@ -105,7 +126,14 @@ def evaluate_model(ds, model):
 
 
 def plot_history(config, history, plot_filename=None):
+    '''Plot training and validation accuracy/loss curves side-by-side.
 
+    Args:
+        config: Config dict; only config["epochs"] is used to set the x-axis range.
+        history: The History object returned by model.fit().
+        plot_filename: If provided, save the figure to this path before displaying.
+            Must be set before plt.show() is called; show() clears the figure.
+    '''
     # TODO check that these hard-coded numbers are OK
     acc = history.history['accuracy']
     val_acc = history.history['val_accuracy']

@@ -14,6 +14,9 @@ def get_train_val_data(supervisor_path, validation_split, seed, image_size, batc
     # we can manipulate Dataset objects and perform transforms on them if we need them
     # so for example we can create a basic dataset and then augment it, batch it, etc.
     # later on
+    # subset="both" returns two datasets in a single call rather than calling
+    # image_dataset_from_directory twice with subset="training" and subset="validation".
+    # The same seed must be used when splitting so train and val don't overlap.
     train_ds, val_ds = tf.keras.utils.image_dataset_from_directory(
         supervisor_path,
         validation_split=validation_split,  # typically 0.2, but made smaller to make this example quick

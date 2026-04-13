@@ -1,3 +1,10 @@
+# Hyperparameter search using scikeras to wrap the Keras model in a scikit-learn
+# compatible interface, then running GridSearchCV over candidate edge sizes.
+#
+# NOTE: This script is currently non-functional — GridSearchCV requires NumPy/array
+# inputs, but tf.data.Dataset objects are not scikit-learn compatible (see TODO below).
+# See hyperparam_manual.py for a working manual alternative.
+
 import numpy
 from sklearn.model_selection import GridSearchCV
 from scikeras.wrappers import KerasClassifier, KerasRegressor
@@ -12,7 +19,11 @@ from src.evaluation import plot_history
 
 
 def create_model(edge_size=128):
+    '''Build and compile a CNN for the given square image edge size.
 
+    The default edge_size=128 is required by KerasClassifier, which calls
+    create_model() with only keyword arguments from the param_grid.
+    '''
     num_classes = 3
 
     model = Sequential([
@@ -51,6 +62,8 @@ def main():
         config["shuffle"]
     )
 
+    # KerasClassifier wraps the Keras model so it presents a scikit-learn API
+    # (fit/predict/score), enabling the use of GridSearchCV for hyperparameter search.
     model_CV = KerasClassifier(
         model=create_model,
         epochs=config["epochs"],
@@ -58,6 +71,9 @@ def main():
         verbose=1
     )
 
+    # param_grid maps constructor argument names to lists of values to try.
+    # GridSearchCV will train a separate model for each combination and report
+    # mean cross-validated accuracy.
     edge_size = [64, 128, 256]
     param_grid = dict(edge_size=edge_size)
     grid = GridSearchCV(estimator=model_CV, param_grid=param_grid, n_jobs=-1, cv=3)

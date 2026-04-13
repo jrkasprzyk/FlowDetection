@@ -1,3 +1,7 @@
+# Smoke test: verifies that the FlowDetection package installs correctly and
+# that the config loader resolves all required keys and path types.
+# Run this after a fresh install or environment change to catch import/config errors early.
+
 from pathlib import Path
 
 import FlowDetection
@@ -10,6 +14,7 @@ def main():
 
     config = load_config("config_test_config.yaml")
 
+    # Ensure every key that downstream code depends on is present in the loaded config.
     required_keys = {
         "computer",
         "validation_split",
