@@ -35,8 +35,7 @@ def main():
 
     #print(f"After the ignore_errors subroutine, ds has {len(ds)} entries")
 
-    output_path = set_output_path("CEAE-L-042")
-    model_filename = output_path / "model001.keras"
+    model_filename = set_custom_path("C:/GitHub/FlowDetection/models/model001.keras")
 
     # load model from file
     # https://www.tensorflow.org/tutorials/keras/save_and_load
@@ -44,7 +43,9 @@ def main():
 
     print(model.summary())
 
-    predictions = predict_unlabeled_image_list(ds, model, filename=output_path / "model001_unlabeled_camera_b")
+    predictions = predict_unlabeled_image_list(ds, 
+                                               model, 
+                                               filename=set_custom_path("C:/GitHub/FlowDetection/src/output.txt"))
 
     #confusion_matrix = create_confusion_matrix(labels, predictions)
 
