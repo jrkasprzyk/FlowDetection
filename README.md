@@ -5,11 +5,7 @@ CNN-based image classification for flow detection from camera images. The core l
 ## Requirements
 
 - Python 3.12 (required by `tensorflow==2.16.1`; Python 3.13+ is not yet supported by this TensorFlow version)
-<<<<<<< Updated upstream
-- All dependencies are declared in [pyproject.toml](pyproject.toml) and installed automatically by `pip install -e .`
-=======
-- All other dependencies are specified in [pyproject.toml](pyproject.toml)
->>>>>>> Stashed changes
+- All dependencies are declared in [pyproject.toml](pyproject.toml) and can be installed with `pip install -e .`
 
 ## Installation
 
@@ -59,14 +55,7 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install -e .
 ```
-
-<<<<<<< Updated upstream
 Windows (verified):
-=======
-
-Windows:
->>>>>>> Stashed changes
-
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
@@ -100,7 +89,6 @@ python src/smoke_test.py
 
 A successful install prints the resolved config paths and `Smoke test passed`.
 
-<<<<<<< Updated upstream
 ## What the Model Classifies
 
 The CNN classifies camera images of a flume into flow-condition categories. The training dataset uses the standard Keras subfolder-per-class layout (one subdirectory per label inside `flow_detection_labeled_camera-b/`), and `tf.keras.utils.image_dataset_from_directory` infers class names from the folder names automatically. The number of classes is determined at runtime from the dataset.
@@ -123,9 +111,6 @@ Example:
 ```bash
 python src/train_and_save.py
 ```
-
-=======
->>>>>>> Stashed changes
 ## Import Statements
 
 ```python
