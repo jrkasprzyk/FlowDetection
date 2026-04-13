@@ -5,7 +5,11 @@ CNN-based image classification for flow detection from camera images. The core l
 ## Requirements
 
 - Python 3.12 (required by `tensorflow==2.16.1`; Python 3.13+ is not yet supported by this TensorFlow version)
+<<<<<<< Updated upstream
 - All dependencies are declared in [pyproject.toml](pyproject.toml) and installed automatically by `pip install -e .`
+=======
+- All other dependencies are specified in [pyproject.toml](pyproject.toml)
+>>>>>>> Stashed changes
 
 ## Installation
 
@@ -15,7 +19,37 @@ Development has always used virtual environments; earlier versions used a conda 
 
 ### Option 1: venv (recommended)
 
-Get Python 3.12 from [python.org](https://www.python.org/downloads/), then run the following from the repo root.
+
+Install Python 3.12:
+
+macOS / Linux:
+
+1. (Recommended) Install with Homebrew:
+```bash
+brew install python@3.12
+```
+Or, download the installer from [python.org](https://www.python.org/downloads/).
+2. Verify installation:
+```bash
+python3.12 --version
+```
+
+
+Windows:
+
+1. (Recommended) Install with winget (Windows Package Manager):
+```powershell
+winget install --id Python.Python.3.12
+```
+If winget is not available, download the Python 3.12 installer from [python.org](https://www.python.org/downloads/).
+2. If using the installer, ensure you check "Add Python to PATH" during setup.
+3. Verify installation:
+```powershell
+py -3.12 --version
+```
+
+Then run the following from the repo root to install the package. The `-e` flag denotes the package as editable, which is helpful during development stage.
+
 
 macOS / Linux:
 
@@ -26,7 +60,12 @@ pip install --upgrade pip
 pip install -e .
 ```
 
+<<<<<<< Updated upstream
 Windows (verified):
+=======
+
+Windows:
+>>>>>>> Stashed changes
 
 ```powershell
 py -3.12 -m venv .venv
@@ -34,6 +73,7 @@ py -3.12 -m venv .venv
 pip install --upgrade pip
 pip install -e .
 ```
+These install instructions have been verified on both Windows and macOS.
 
 Some scripts require additional packages (e.g. `pandas`, `openpyxl`). Install the optional extras as needed:
 
@@ -50,6 +90,8 @@ mamba activate flowdetectionminimal
 pip install -e .
 ```
 
+> **Note:**The environment_minimal.yaml file is not up-to-date and the conda/mamba instructions have not been verified in recent versions of the codebase.
+
 ### Verify the installation
 
 ```bash
@@ -58,6 +100,7 @@ python src/smoke_test.py
 
 A successful install prints the resolved config paths and `Smoke test passed`.
 
+<<<<<<< Updated upstream
 ## What the Model Classifies
 
 The CNN classifies camera images of a flume into flow-condition categories. The training dataset uses the standard Keras subfolder-per-class layout (one subdirectory per label inside `flow_detection_labeled_camera-b/`), and `tf.keras.utils.image_dataset_from_directory` infers class names from the folder names automatically. The number of classes is determined at runtime from the dataset.
@@ -81,6 +124,8 @@ Example:
 python src/train_and_save.py
 ```
 
+=======
+>>>>>>> Stashed changes
 ## Import Statements
 
 ```python
@@ -96,7 +141,9 @@ from FlowDetection.config import load_config   # long form
 
 ## Configuration
 
-Scripts load their settings from YAML files using `load_config`. Paths are resolved relative to the config file's location, so scripts work correctly regardless of the working directory.
+Some scripts use a YAML configuration file to make experiment setup easier. The `load_config` file resolves all of the keys available in the YAML schema. However, not all scripts in the repo have made use of the configuration file.
+
+The `computer` key in the YAML selects machine-specific data and output paths defined in [src/FlowDetection/config.py](src/FlowDetection/config.py). The `load_config` function was originally designed to resolve filepaths seamlessly:
 
 ```python
 from FlowDetection import load_config
@@ -104,15 +151,20 @@ from FlowDetection import load_config
 config = load_config("model001.yaml")
 ```
 
-The `computer` key in the YAML selects machine-specific data and output paths defined in [src/FlowDetection/config.py](src/FlowDetection/config.py). Paths can also be specified explicitly in the YAML, which takes precedence over the machine mapping:
+> **Note:** The `computer` key and the machine mapping in `config.py` are legacy features and may be removed in a future version. To avoid confusion and make configuration more flexible, it is recommended to set paths directly in your script using `set_custom_path`.
 
-```yaml
-computer: my-machine
-supervisor_path: /data/flow_detection_labeled
-output_path: /results/models
+The safest way to interact with the codebase is to specify Paths explicitly and make use of the `set_custom_path` function. The `set_custom_path` function accepts one argument -- the path that you need to specify for a particular file -- and turns it into a Path object (which resolves differences between Windows and macOS/Linux filepath types). The below example sets explicit paths for both the config file and the model file:
+
+```python
+from FlowDetection import load_config, set_custom_path
+
+config = load_config(set_custom_path("/path/to/your/configs/model001.yaml"))
+
+model = tf.keras.models.load_model(set_custom_path("path/to/your/models/model001.keras"))
+
 ```
 
-Relative paths in the YAML are resolved from the config file's own directory.
+See the example `/src/evaluate_unlabeled.py` for more.
 
 A complete config file ([model001.yaml](src/model001.yaml)) looks like this:
 
