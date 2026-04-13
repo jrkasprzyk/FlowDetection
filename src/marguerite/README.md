@@ -1,0 +1,1 @@
+This is a folder that you can use to put new scripts that represent your filepath etc. For now this will keep the new scripts isolated from the other examples, and we can organize later.
