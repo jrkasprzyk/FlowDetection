@@ -1,3 +1,7 @@
+# Script to run a trained model against a folder of unlabeled images and write
+# predictions to a CSV file.  Unlike the labeled evaluation scripts, there is no
+# ground-truth class to compare against, so no confusion matrix is computed.
+
 from FlowDetection.runtime import configure_tensorflow_environment
 
 configure_tensorflow_environment()
@@ -14,6 +18,9 @@ def main():
 
     #supervisor_path = set_supervisor_path("2020laptop")
     image_path = set_custom_path("C:/Users/joka0958/OneDrive - UCB-O365/Datasets/flow_detection_unlabeled_camera_b")
+    # labels=None because the images have no ground-truth class subdirectories.
+    # shuffle=False preserves filename order so that ds.file_paths[index] aligns
+    # with the iteration order inside predict_unlabeled_image_list.
     ds = tf.keras.utils.image_dataset_from_directory(
         image_path,
         labels=None,

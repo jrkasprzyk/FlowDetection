@@ -1,3 +1,6 @@
+# Script to load a previously saved model and evaluate it against labeled data.
+# Useful for comparing models after training without re-running the full training pipeline.
+
 from FlowDetection.runtime import configure_tensorflow_environment
 
 configure_tensorflow_environment()
@@ -24,6 +27,9 @@ def main():
 
     print(model.summary())
 
+    # batch_size=None loads the dataset unbatched (one image per element).
+    # predict_image_list operates image-by-image, so unbatched data is required there.
+    # evaluate_model requires batched data, so the dataset is rebatched below.
     train_unbatched_ds, val_unbatched_ds = get_train_val_data(
         supervisor_path,
         0.20,

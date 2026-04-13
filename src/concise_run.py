@@ -1,4 +1,5 @@
 # prototyping fucntions for use within hyperparameter tuning and other experiments
+# Loads a saved model, runs predictions on a 100-image sample, and exports results to Excel.
 
 # https://stackoverflow.com/questions/58663198/does-tf-data-dataset-take-return-random-sample
 # in the above, ds.take(n) takes n samples; if shuffle=True, these samples are random
@@ -30,6 +31,8 @@ def main():
 
     print(model.summary())
 
+    # batch_size=None loads the dataset unbatched so predict_image_list can iterate
+    # over individual (image, label) pairs rather than batches.
     train_unbatched_ds, val_unbatched_ds = get_train_val_data(
         supervisor_path,
         validation_split=0.20,
@@ -40,6 +43,8 @@ def main():
 
     print("Using ds.take() to predict a set of 100 values from the validation set")
 
+    # ds.take(100) creates a new dataset containing at most 100 elements drawn from
+    # the start of the (shuffled) validation set — useful for quick spot-checks.
     val_unbatched_ds_hundred = val_unbatched_ds.take(100)
 
     labels, predictions = predict_image_list(val_unbatched_ds_hundred, model)
