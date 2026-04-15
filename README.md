@@ -59,7 +59,7 @@ Windows (verified):
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
-pip install --upgrade pip
+python.exe -m pip install --upgrade pip
 pip install -e .
 ```
 These install instructions have been verified on both Windows and macOS.
