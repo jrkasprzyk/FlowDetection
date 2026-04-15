@@ -59,8 +59,8 @@ Windows (verified):
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python.exe -m pip install --upgrade pip
-pip install -e .
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\pip.exe install -e .
 ```
 These install instructions have been verified on both Windows and macOS.
 
@@ -84,7 +84,7 @@ pip install -e .
 ### Verify the installation
 
 ```bash
-python src/smoke_test.py
+python ./src/smoke_test.py
 ```
 
 A successful install prints the resolved config paths and `Smoke test passed`.
@@ -95,7 +95,7 @@ The CNN classifies camera images of a flume into flow-condition categories. The 
 
 ## Scripts
 
-Ready-to-run scripts live in `src/`. Each one loads a YAML config with `load_config` and then calls into the `FlowDetection` package.
+Ready-to-run scripts live in `./src/`. Each one loads a YAML config with `load_config` and then calls into the `FlowDetection` package.
 
 | Script | Purpose |
 |--------|---------|
@@ -109,7 +109,7 @@ Ready-to-run scripts live in `src/`. Each one loads a YAML config with `load_con
 Example:
 
 ```bash
-python src/train_and_save.py
+python ./src/train_and_save.py
 ```
 ## Import Statements
 
