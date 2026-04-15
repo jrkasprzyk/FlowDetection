@@ -43,9 +43,14 @@ def main():
 
     print(model.summary())
 
+    # predict the class index for each image in the dataset and write to output.txt
+    # the output file will have one line per image, with the predicted class index (0, 1, or 2) for that image.
+    # the filename of the output file is set by set_custom_path, and will be created in the same directory as this script.
+    # the str() around set_custom_path is needed because set_custom_path returns a pathlib.Path object, 
+    # but predict_unlabeled_image_list expects a string filename.
     predictions = predict_unlabeled_image_list(ds, 
                                                model, 
-                                               filename=set_custom_path("C:/GitHub/FlowDetection/src/output.txt"))
+                                               filename=str(set_custom_path("C:/GitHub/FlowDetection/src/output.txt")))
 
     #confusion_matrix = create_confusion_matrix(labels, predictions)
 
