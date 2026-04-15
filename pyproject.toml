@@ -12,13 +12,11 @@ dependencies = [
 	"numpy>=1.26",
 	"PyYAML>=6.0",
 	"tensorflow==2.16.1",
-]
-
-[project.optional-dependencies]
-scripts = [
 	"openpyxl>=3.1",
 	"pandas>=2.2",
 ]
+
+[project.optional-dependencies]
 experimental = [
 	"scikeras==0.13.0",
 	"scikit-learn==1.5.2",
