@@ -8,9 +8,9 @@ from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.losses import SparseCategoricalCrossentropy
 
-from src.data import get_train_val_data
-from src.config import create_config
-from src.evaluation import evaluate_model
+from FlowDetection.data import get_train_val_data
+from FlowDetection.config import create_config
+from FlowDetection.evaluation import evaluate_model
 
 
 def create_model(edge_size):

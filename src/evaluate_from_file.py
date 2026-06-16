@@ -16,8 +16,8 @@ from FlowDetection.evaluation import predict_image_list, create_confusion_matrix
 
 def main():
 
-    supervisor_path = set_supervisor_path("2020laptop")
-    output_path = set_output_path("2020laptop")
+    supervisor_path = set_supervisor_path("Marguerite")
+    output_path = set_output_path("Marguerite")
 
     model_filename = output_path / "model001.keras"
 

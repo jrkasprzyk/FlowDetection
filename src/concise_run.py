@@ -18,7 +18,7 @@ from FlowDetection.evaluation import predict_image_list, create_confusion_matrix
 
 def main():
 
-    test_computer = "CEAE-L-042"
+    test_computer = "Marguerite"
 
     supervisor_path = set_supervisor_path(test_computer)
     output_path = set_output_path(test_computer)

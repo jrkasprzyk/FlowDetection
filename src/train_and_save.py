@@ -3,7 +3,7 @@
 # located in the same directory as this script.
 
 from FlowDetection.data import get_train_val_data
-from FlowDetection.config import load_config
+from FlowDetection.config import load_config, set_output_path, set_supervisor_path
 from FlowDetection.training import train_model
 from FlowDetection.evaluation import plot_history
 
